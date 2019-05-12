@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 /**
  * 错误码接口，使用泛型，错误码可能为数字或者字符串
  * @author wuzhihao
- * @date 2019/1/10
  */
 public interface ErrorCode {
     /**

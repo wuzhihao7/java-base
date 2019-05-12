@@ -8,22 +8,22 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 sourceSets.main.resources.srcDirs = ["src/main/java","src/main/resources"]
 
 task sourcesJar(type: Jar) {
-    archiveClassifier = "sources"
     from sourceSets.main.allJava
+    archiveClassifier = 'sources'
 }
 
 task javadocJar(type: Jar) {
-    archiveClassifier = "javadoc"
-    from javadoc.destinationDir
+    from javadoc
+    archiveClassifier = 'javadoc'
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
+publishing{
+    publications{
+        maven(MavenPublication){
             from components.java
             artifact sourcesJar
             artifact javadocJar
