@@ -1,5 +1,6 @@
 package com.house.common.serializer;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class FstSerializerTest {
@@ -10,7 +11,7 @@ public class FstSerializerTest {
         user.setAge(10);
         FstSerializer<User> userFstSerializer = new FstSerializer<>();
         byte[] serialize = userFstSerializer.serialize(user);
-        byte[] serialize2 = userFstSerializer.serialize(user);
-        assert serialize==serialize2;
+        User user1 = userFstSerializer.deserialize(serialize, null);
+        Assert.assertEquals(user, user1);
     }
 }
