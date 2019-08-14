@@ -12,14 +12,21 @@ import java.io.IOException;
  * @author house
  */
 public class KyroSeriaizer<T> implements Serializer<T> {
+    /**
+     * kryo池，线程安全
+     */
     private static final Pool<Kryo> KRYO_POOL = new Pool<Kryo>(true, false, 8) {
         @Override
         protected Kryo create() {
             Kryo kryo = new Kryo();
+            kryo.setReferences(true);
             return kryo;
         }
     };
 
+    /**
+     * output池，线程安全
+     */
     private static final Pool<Output> OUTPUT_POOL = new Pool<Output>(true, false, 16) {
         @Override
         protected Output create() {
@@ -28,6 +35,9 @@ public class KyroSeriaizer<T> implements Serializer<T> {
         }
     };
 
+    /**
+     * input池，线程安全
+     */
     private static final Pool<Input> INPUT_POOL = new Pool<Input>(true, false, 16) {
         @Override
         protected Input create() {
@@ -37,12 +47,30 @@ public class KyroSeriaizer<T> implements Serializer<T> {
     };
 
     @Override
-    public byte[] serialize(T object) throws IOException {
-        return new byte[0];
+    public byte[] serialize(T object) {
+        Kryo kryo = KRYO_POOL.obtain();
+        Output output = OUTPUT_POOL.obtain();
+        try {
+            output.reset();
+            kryo.register(object.getClass());
+            kryo.writeObject(output, object);
+            return output.getBuffer();
+        }finally {
+            KRYO_POOL.free(kryo);
+            OUTPUT_POOL.free(output);
+        }
     }
 
     @Override
-    public T deserialize(byte[] bytes, Class<T> clz) throws IOException {
-        return null;
+    public T deserialize(byte[] bytes, Class<T> clazz) {
+        Kryo kryo = KRYO_POOL.obtain();
+        Input input = INPUT_POOL.obtain();
+        try {
+            input.setBuffer(bytes);
+            return kryo.readObject(input, clazz);
+        }finally {
+            KRYO_POOL.free(kryo);
+            INPUT_POOL.free(input);
+        }
     }
 }
