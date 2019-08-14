@@ -27,8 +27,6 @@ public class KyroSeriaizerTest {
         KyroSeriaizer<User> userKyroSeriaizer = new KyroSeriaizer<>();
         User user = userKyroSeriaizer.deserialize(userKyroSeriaizer.serialize(zhangsan), User.class);
         User user1 = userKyroSeriaizer.deserialize(userKyroSeriaizer.serialize(zhangsan), User.class);
-        System.out.println(zhangsan);
-        System.out.println(user);
         assertEquals(zhangsan, user);
         assert userKyroSeriaizer.serialize(zhangsan) == userKyroSeriaizer.serialize(zhangsan);
     }
