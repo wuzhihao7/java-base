@@ -1,21 +1,8 @@
 package com.house.common.serializer;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.junit.Test;
 
-import java.io.Serializable;
-
-import static org.junit.Assert.*;
-
-@Data
-@NoArgsConstructor
-class User implements Serializable {
-    private static final long serialVersionUID = -545769456851805390L;
-    private int age;
-    private String name;
-}
+import static org.junit.Assert.assertEquals;
 
 public class KyroSeriaizerTest {
 
