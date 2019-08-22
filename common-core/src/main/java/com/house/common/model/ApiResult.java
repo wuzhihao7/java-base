@@ -5,11 +5,11 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * API返回结果
+ * API响应类
  * @author house
  */
 @Data
-public class ApiResultDTO<T> implements Serializable {
+public class ApiResult<T> implements Serializable {
     private static final long serialVersionUID = 6624863815767833913L;
     public static final int NO_LOGIN = -1;
     public static final int SUCCESS = 0;
@@ -32,16 +32,16 @@ public class ApiResultDTO<T> implements Serializable {
      */
     private T data;
 
-    public ApiResultDTO(){
+    public ApiResult(){
         super();
     }
 
-    public ApiResultDTO(T data){
+    public ApiResult(T data){
         super();
         this.data = data;
     }
 
-    public ApiResultDTO(Throwable e){
+    public ApiResult(Throwable e){
         super();
         this.msg = e.getMessage();
         this.code = UNKNOWN_EXCEPTION;
