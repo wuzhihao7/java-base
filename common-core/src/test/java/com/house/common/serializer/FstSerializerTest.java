@@ -11,7 +11,7 @@ public class FstSerializerTest {
         user.setAge(10);
         FstSerializer<User> userFstSerializer = new FstSerializer<>();
         byte[] serialize = userFstSerializer.serialize(user);
-        User user1 = userFstSerializer.deserialize(serialize, null);
+        User user1 = userFstSerializer.deserialize(serialize);
         Assert.assertEquals(user, user1);
     }
 }

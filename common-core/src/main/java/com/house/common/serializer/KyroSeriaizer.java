@@ -53,7 +53,7 @@ public class KyroSeriaizer<T> implements Serializer<T> {
         try {
             output.reset();
             kryo.register(object.getClass());
-            kryo.writeObject(output, object);
+            kryo.writeClassAndObject(output, object);
             return output.getBuffer();
         }finally {
             KRYO_POOL.free(kryo);
@@ -62,12 +62,12 @@ public class KyroSeriaizer<T> implements Serializer<T> {
     }
 
     @Override
-    public T deserialize(byte[] bytes, Class<T> clazz) {
+    public T deserialize(byte[] bytes) {
         Kryo kryo = KRYO_POOL.obtain();
         Input input = INPUT_POOL.obtain();
         try {
             input.setBuffer(bytes);
-            return kryo.readObject(input, clazz);
+            return (T) kryo.readClassAndObject(input);
         }finally {
             KRYO_POOL.free(kryo);
             INPUT_POOL.free(input);

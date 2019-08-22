@@ -14,7 +14,7 @@ public class FstSerializer<T> implements Serializer<T> {
     }
 
     @Override
-    public T deserialize(byte[] bytes, Class<T> clazz) {
+    public T deserialize(byte[] bytes) {
         return (T)FST_CONFIGURATION.asObject(bytes);
     }
 }
