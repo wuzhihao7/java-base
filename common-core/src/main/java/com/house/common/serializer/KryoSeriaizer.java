@@ -19,6 +19,7 @@ public class KryoSeriaizer<T> implements Serializer<T> {
         protected Kryo create() {
             Kryo kryo = new Kryo();
             kryo.setReferences(true);
+            kryo.setRegistrationRequired(true);
             return kryo;
         }
     };
