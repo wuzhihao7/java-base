@@ -1,11 +1,14 @@
 package com.house.common.serializer;
 
-import java.io.IOException;
-
 /**
  * @author house
  */
 public interface Serializer<T> {
+    /**
+     * 空字节数组
+     */
+    final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
     /**
      * 序列化对象
      * @param object 对象实例

@@ -45,11 +45,6 @@ public class KryoSeriaizer<T> implements Serializer<T> {
         }
     };
 
-    /**
-     * 空字节数组
-     */
-    private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
-
     @Override
     public byte[] serialize(T object) {
         if(object == null){
