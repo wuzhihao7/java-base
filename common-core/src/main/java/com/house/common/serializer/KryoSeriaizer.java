@@ -10,6 +10,7 @@ import com.esotericsoftware.kryo.util.Pool;
  * @author house
  */
 public class KryoSeriaizer<T> implements Serializer<T> {
+
     /**
      * kryo池，线程安全
      */
@@ -44,8 +45,16 @@ public class KryoSeriaizer<T> implements Serializer<T> {
         }
     };
 
+    /**
+     * 空字节数组
+     */
+    private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
     @Override
     public byte[] serialize(T object) {
+        if(object == null){
+            return EMPTY_BYTE_ARRAY;
+        }
         Kryo kryo = KRYO_POOL.obtain();
         Output output = OUTPUT_POOL.obtain();
         try {
@@ -61,6 +70,9 @@ public class KryoSeriaizer<T> implements Serializer<T> {
 
     @Override
     public T deserialize(byte[] bytes) {
+        if(bytes == null || bytes.length <= 0){
+            return null;
+        }
         Kryo kryo = KRYO_POOL.obtain();
         Input input = INPUT_POOL.obtain();
         try {

@@ -17,6 +17,5 @@ public class KryoSeriaizerTest {
         System.out.println(user);
         System.out.println(user1);
         assertEquals(zhangsan, user);
-        assert userKryoSeriaizer.serialize(zhangsan) == userKryoSeriaizer.serialize(zhangsan);
     }
 }
