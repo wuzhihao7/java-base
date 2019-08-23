@@ -5,13 +5,11 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.util.Pool;
 
-import java.io.IOException;
-
 /**
  * Kryo序列化工具类
  * @author house
  */
-public class KyroSeriaizer<T> implements Serializer<T> {
+public class KryoSeriaizer<T> implements Serializer<T> {
     /**
      * kryo池，线程安全
      */
